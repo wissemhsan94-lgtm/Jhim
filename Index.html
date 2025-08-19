@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حقيقة أم خيال | Fact or Fiction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --sky-blue: #87CEEB;
+            --dark-blue: #1E3A8A;
+            --gold: #D4AF37;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        body {
+            background-color: var(--sky-blue);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--dark-blue) 0%, #0F172A 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 15s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 0.8; }
+        }
+        
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--gold);
+            object-fit: cover;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 span {
+            color: var(--gold);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--dark-blue);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+            background-color: #E6C200;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 60px 0;
+            background-color: var(--white);
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark-blue);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--gold);
+        }
+        
+        .section-title i {
+            color: var(--gold);
+            margin-left: 10px;
+            font-size: 1.8rem;
+        }
+        
+        /* About Section */
+        .about-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        /* Videos Section */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .video-card {
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            overflow: hidden;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+        
+        .video-info {
+            padding: 15px;
+        }
+        
+        .video-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+        }
+        
+        .video-stats {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .watch-button {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--dark-blue);
+            padding: 8px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .watch-button:hover {
+            background-color: #E6C200;
+        }
+        
+        /* Stats Section */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            width: 200px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--dark-blue);
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--dark-blue);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-button {
+            background-color: var(--gold);
+            color: var(--dark-blue);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+        }
+        
+        .submit-button:hover {
+            background-color: #E6C200;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* Social Media */
+        .social-media {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--dark-blue);
+            color: var(--white);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background-color: var(--gold);
+            color: var(--dark-blue);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-content p {
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.5rem;
+            }
+            
+            .video-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-box {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>حقيقة أم خيال | Fact or Fiction</h1>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <img src="https://f.top4top.io/p_3517ycwh70.jpg" alt="Abdelhafeez Jhim" class="profile-image">
+            <h1>حقيقة أم خيال | <span>Fact or Fiction</span></h1>
+            <p>مع Abdelhafeez Jhim، نكشف الغامض ونفك رموز الخيال من الحقيقة.</p>
+            <a href="vnd.youtube://channel/UCjhim259" onclick="return openYouTube(this.href)" class="cta-button">شاهد القناة على يوتيوب</a>
+        </div>
+    </section>
+    
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2><i class="fas fa-book"></i> عن القناة</h2>
+            </div>
+            <div class="about-content">
+                <p>مرحبًا بكم في قناة "حقيقة أم خيال" حيث نغوص في عالم الغموض والأسرار لنفصل الحقيقة عن الخيال. نقدم لكم محتوى مميزًا يجمع بين الثقافة والتسلية، نكشف فيه حقائق غريبة، نحل ألغازًا محيرة، ونستكشف قصصًا تثير الدهشة. انضموا إلينا في هذه الرحلة المثيرة لاكتشاف المجهول!</p>
+            </div>
+            
+            <div class="video-grid" style="margin-top: 50px;">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/iRT8EYyBqmQ/maxresdefault.jpg" alt="فيديو ترحيبي">
+                    </div>
+                    <div class="video-info">
+                        <h3>فيديو ترحيبي 1</h3>
+                        <div class="video-stats">
+                            <span><i class="fas fa-eye"></i> مشاهدات</span>
+                            <span><i class="fas fa-thumbs-up"></i> إعجابات</span>
+                        </div>
+                        <a href="vnd.youtube://watch?v=iRT8EYyBqmQ" onclick="return openYouTube(this.href)" class="watch-button">شاهد الآن</a>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/FVlUjOea6VA/maxresdefault.jpg" alt="فيديو ترحيبي">
+                    </div>
+                    <div class="video-info">
+                        <h3>فيديو ترحيبي 2</h3>
+                        <div class="video-stats">
+                            <span><i class="fas fa-eye"></i> مشاهدات</span>
+                            <span><i class="fas fa-thumbs-up"></i> إعجابات</span>
+                        </div>
+                        <a href="vnd.youtube://watch?v=FVlUjOea6VA" onclick="return openYouTube(this.href)" class="watch-button">شاهد الآن</a>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/hU9xME22U_o/maxresdefault.jpg" alt="فيديو ترحيبي">
+                    </div>
+                    <div class="video-info">
+                        <h3>فيديو ترحيبي 3</h3>
+                        <div class="video-stats">
+                            <span><i class="fas fa-eye"></i> مشاهدات</span>
+                            <span><i class="fas fa-thumbs-up"></i> إعجابات</span>
+                        </div>
+                        <a href="vnd.youtube://watch?v=hU9xME22U_o" onclick="return openYouTube(this.href)" class="watch-button">شاهد الآن</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="playlists">
+        <div class="container">
+            <div class="section-title">
+                <h2><i class="fas fa-list"></i> قوائم التشغيل</h2>
+            </div>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg" alt="قائمة التشغيل">
+                    </div>
+                    <div class="video-info">
+                        <h3>قائمة التشغيل الرئيسية</h3>
+                        <div class="video-stats">
+                            <span><i class="fas fa-video"></i> عدد الفيديوهات</span>
+                        </div>
+                        <a href="vnd.youtube://playlist?list=PLqMry8IhujIWiyplCiy4gXZnoR_lNR96I" onclick="return openYouTube(this.href)" class="watch-button">استعرض القائمة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="shorts">
+        <div class="container">
+            <div class="section-title">
+                <h2><i class="fas fa-film"></i> Shorts</h2>
+            </div>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg" alt="فيديو قصير">
+                    </div>
+                    <div class="video-info">
+                        <h3>Shorts Playlist</h3>
+                        <div class="video-stats">
+                            <span><i class="fas fa-video"></i> عدد الفيديوهات</span>
+                        </div>
+                        <a href="vnd.youtube://playlist?list=PLqMry8IhujIVE_O6UHNSzYAku0dvX2Iwd" onclick="return openYouTube(this.href)" class="watch-button">استعرض القائمة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="stats">
+        <div class="container">
+            <div class="section-title">
+                <h2><i class="fas fa-chart-line"></i> إحصائيات القناة</h2>
+            </div>
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-number" id="subscribers-count">10K</div>
+                    <div class="stat-label">المشتركين</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="views-count">500K</div>
+                    <div class="stat-label">المشاهدات</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="likes-count">25K</div>
+                    <div class="stat-label">الإعجابات</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2><i class="fas fa-envelope"></i> صندوق الاقتراحات</h2>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">الاسم</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">الرسالة</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">إرسال الرسالة</button>
+            </form>
+        </div>
+    </section>
+    
+    <section id="social">
+        <div class="container">
+            <div class="section-title">
+                <h2><i class="fas fa-share-alt"></i> تواصل معنا</h2>
+            </div>
+            <div class="social-media">
+                <div class="social-icons">
+                    <a href="vnd.youtube://channel/UCjhim259" onclick="return openYouTube(this.href)" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.facebook.com/share/177EUyM4FZ/" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="whatsapp://send?phone=21629407656" class="social-icon" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2025 Abdelhafeez Jhim – جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple counter animation for stats
+        function animateCounters() {
+            const subscribers = document.getElementById('subscribers-count');
+            const views = document.getElementById('views-count');
+            const likes = document.getElementById('likes-count');
+            
+            // Replace these with actual numbers from your YouTube channel
+            const targetSubscribers = 10000;
+            const targetViews = 500000;
+            const targetLikes = 25000;
+            
+            animateValue(subscribers, 0, targetSubscribers, 2000);
+            animateValue(views, 0, targetViews, 2000);
+            animateValue(likes, 0, targetLikes, 2000);
+        }
+        
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.innerHTML = value.toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+        
+        // Function to open YouTube app or fallback to browser
+        function openYouTube(url) {
+            // Try to open the YouTube app
+            window.location.href = url;
+            
+            // If app not available, fallback to browser after 500ms
+            setTimeout(function() {
+                const webUrl = url.replace('vnd.youtube://', 'https://youtube.com/');
+                window.location.href = webUrl;
+            }, 500);
+            
+            return false;
+        }
+        
+        // Function to open WhatsApp app or fallback to browser
+        function openWhatsApp(url) {
+            // Try to open the WhatsApp app
+            window.location.href = url;
+            
+            // If app not available, fallback to browser after 500ms
+            setTimeout(function() {
+                const webUrl = 'https://web.whatsapp.com/send?phone=21629407656';
+                window.location.href = webUrl;
+            }, 500);
+            
+            return false;
+        }
+        
+        // Start animation when page loads
+        window.addEventListener('load', animateCounters);
+        
+        // Set up click handlers for WhatsApp links
+        document.querySelector('a[href^="whatsapp://"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            openWhatsApp(this.href);
+        });
+    </script>
+</body>
+</html>
